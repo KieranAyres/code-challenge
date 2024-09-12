@@ -1,5 +1,12 @@
-module FileReader
+module FileUtilities
+  module_function
 
-    # A way to house public methods for file reading
+  def file_reader
 
+  end
+
+  def file_writer
+
+  end
 end
+
