@@ -1,8 +1,10 @@
 # Implementation Experimentation Playground
+require 'csv'
 birmingham = 'Birmingham'
 neath = 'Neath'
 
-VALID_AREA_CODES = %w[london swansea birmingham].map(&:capitalize).freeze
+# VALID_AREA_CODES = %w[london swansea birmingham].map(&:capitalize).freeze
+VALID_AREA_CODES = %w[cardiff swansea birmingham].freeze
 
 if VALID_AREA_CODES.include?(birmingham)
   area_code = 'B' + %w[A B C].sample
@@ -44,3 +46,20 @@ end
 
 # invalid letters to validate against - if letter contains one of these, move to invalid group
 %w[i k m y].map(&:upcase)
+
+
+
+# roughly requirement number 3
+def count_invalid_reg_numbers
+  full_table = CSV.read('vehicles.csv', headers: true)
+  count = 0
+  full_table['registrationArea'].each do |area|
+    if VALID_AREA_CODES.include?(area)
+      'valid'
+    else
+      count +=1
+    end
+  end
+  puts count
+end
+

@@ -1,3 +1,4 @@
+require 'csv'
 module FileUtilities
   module_function
 
@@ -8,5 +9,8 @@ module FileUtilities
   def file_writer
 
   end
-end
 
+  def delete_invalid_rows
+
+  end
+end
