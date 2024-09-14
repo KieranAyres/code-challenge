@@ -1,5 +1,7 @@
 # Implementation Experimentation Playground
 require 'csv'
+require_relative 'random_three_letters'
+
 birmingham = 'Birmingham'
 neath = 'Neath'
 
@@ -43,23 +45,19 @@ end
 
 # validate the area code against this
 
-
-# invalid letters to validate against - if letter contains one of these, move to invalid group
-%w[i k m y].map(&:upcase)
-
-
-
 # roughly requirement number 3
-def count_invalid_reg_numbers
-  full_table = CSV.read('vehicles.csv', headers: true)
-  count = 0
-  full_table['registrationArea'].each do |area|
-    if VALID_AREA_CODES.include?(area)
-      'valid'
-    else
-      count +=1
-    end
-  end
-  puts count
-end
+# def count_invalid_reg_numbers
+#   full_table = CSV.read('vehicles.csv', headers: true)
+#   count = 0
+#   full_table['registrationArea'].each do |area|
+#     if VALID_AREA_CODES.include?(area)
+#       'valid'
+#     else
+#       count +=1
+#     end
+#   end
+#   puts count
+# end
+
+RandomThreeLetters.generate
 
