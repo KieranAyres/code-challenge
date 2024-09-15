@@ -8,11 +8,11 @@ module RandomThreeLetters
   def generate
     loop do
       letters = ('A'..'Z').to_a.sample + ('A'..'Z').to_a.sample + ('A'..'Z').to_a.sample
-      return letters unless validate_letters(letters.split(''))
+      return letters unless valid?(letters.split(''))
     end
   end
 
-  def validate_letters(letters)
+  def valid?(letters)
     INVALID_LETTERS.any? { |letter| letters.include?(letter) }
   end
 end
