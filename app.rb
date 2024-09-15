@@ -13,10 +13,6 @@ if VALID_AREA_CODES.include?(birmingham)
   puts area_code
 end
 
-def random_letter_generator
-
-end
-
 # will need a case statement
 
 # digit is going to come from the line in the csv
@@ -59,5 +55,6 @@ end
 #   puts count
 # end
 
+binding.irb
 RandomThreeLetters.generate
 

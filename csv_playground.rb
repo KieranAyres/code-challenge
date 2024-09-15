@@ -61,18 +61,20 @@ area_codes = []
 csv_table['registrationArea'].each do |area|
   case area
   when 'birmingham'
-      birmingham_area_codes = 'B' + %w[A B C].sample
+      birmingham_area_codes = "birmingham, #{'B' + %w[A B C].sample}"
       area_codes << birmingham_area_codes
     when 'swansea'
-      swansea_area_codes = 'C' + generate_second_letter(swansea: true)
+      swansea_area_codes = "swansea, #{'C' + generate_second_letter(swansea: true)}"
       area_codes << swansea_area_codes
     else
-      cardiff_area_codes = 'C' + generate_second_letter(swansea: false)
+      cardiff_area_codes = "cardiff, #{'C' + generate_second_letter(swansea: false)}"
       area_codes << cardiff_area_codes
-    end
+  end
 end
 
-# puts area_codes
+# write registration numbers, and write mode
+File.write('reg_numbers.csv', 'w')
+
 
 
 full_table = CSV.read('vehicles.csv', headers: true)
