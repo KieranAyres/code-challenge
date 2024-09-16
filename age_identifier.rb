@@ -10,6 +10,10 @@ module AgeIdentifier
   csv.delete('vin')
   csv.delete('colour')
 
+  start_date = Date.new(03).strftime('%m')  # November 1, 2023
+  end_date = Date.new(08).strftime('%m')    # January 31, 2024
+
+  date_range = (start_date..end_date)
 
   csv.each do |date|
     # some logic here to:

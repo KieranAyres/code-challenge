@@ -19,6 +19,7 @@ end
 # validate the area code against this
 
 # roughly requirement number 3
+# refactor this to take in a list of values to do this against so it doesn't read in a csv
 def count_invalid_reg_numbers
   full_table = CSV.read('vehicles.csv', headers: true)
   count = 0

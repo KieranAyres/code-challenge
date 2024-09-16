@@ -50,3 +50,5 @@ b.	Total number of registration numbers generated per registration area - Here i
 - Friday - ensure you can build licence plates
 - Saturday-Sunday - Implement features
 
+
+- Want the data to look like a hash, a hash with the area code and then however many reg numbers were created in that area
