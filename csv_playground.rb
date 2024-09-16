@@ -39,16 +39,6 @@ end
 #   end
 # end
 
-# cleaner way to use the names
-# CSV.foreach('new_vehicles.csv', headers: true, header_converters: :symbol) do |cars|
-#   puts cars[:registrationarea] # weird way as the header is camel cased
-# end
-
-# csv_table = CSV.read('vehicles.csv', :headers => true)
-# csv_table.delete('vin')
-# csv_table.delete('make')
-# csv_table.delete('colour')
-
 # Better way again - cleanses the file to just work with what you need for data generation
 csv_table = CSV.read('new_vehicles.csv', :headers => true)
 csv_table.delete('vin')
@@ -58,30 +48,45 @@ csv_table.delete('colour')
 
 area_codes = []
 
+# file = File.open('reg_codes.csv', 'w')
+
 csv_table['registrationArea'].each do |area|
   case area
   when 'birmingham'
-      birmingham_area_codes = "birmingham, #{'B' + %w[A B C].sample}"
-      area_codes << birmingham_area_codes
+      # birmingham_area_codes = "birmingham, #{'B' + %w[A B C].sample}"
+      birmingham_area_codes = 'B' + %w[A B C].sample
+      # area_codes << birmingham_area_codes
+      # puts birmingham_area_codes
     when 'swansea'
-      swansea_area_codes = "swansea, #{'C' + generate_second_letter(swansea: true)}"
-      area_codes << swansea_area_codes
+      # swansea_area_codes = "swansea, #{'C' + generate_second_letter(swansea: true)}"
+      swansea_area_codes = 'C' + generate_second_letter(swansea: true)
+      # area_codes << swansea_area_codes
+      # puts swansea_area_codes
     else
-      cardiff_area_codes = "cardiff, #{'C' + generate_second_letter(swansea: false)}"
-      area_codes << cardiff_area_codes
+      # cardiff_area_codes = "cardiff, #{'C' + generate_second_letter(swansea: false)}"
+      cardiff_area_codes = 'C' + generate_second_letter(swansea: false)
+      # area_codes << cardiff_area_codes
+      # puts cardiff_area_codes
   end
+  # experiment with loading them into a hash
+  binding.irb
+  area_codes
+  # scope issues
+  # file.write(area_codes)
 end
 
+# file.close
+
 # write registration numbers, and write mode
-File.write('reg_numbers.csv', 'w')
+# File.write('reg_numbers.csv', 'w')
 
 
 
-full_table = CSV.read('vehicles.csv', headers: true)
-full_table.delete('vin')
-full_table.delete('make')
-full_table.delete('colour')
-full_table.delete('dateOfManufacture')
+# full_table = CSV.read('vehicles.csv', headers: true)
+# full_table.delete('vin')
+# full_table.delete('make')
+# full_table.delete('colour')
+# full_table.delete('dateOfManufacture')
 
 
 
