@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module RandomThreeLetters
+module RandomLetters
   module_function
 
   INVALID_LETTERS = %w[i k m y].map(&:upcase)
@@ -9,6 +9,14 @@ module RandomThreeLetters
     loop do
       letters = ('A'..'Z').to_a.sample + ('A'..'Z').to_a.sample + ('A'..'Z').to_a.sample
       return letters unless valid?(letters.split(''))
+    end
+  end
+
+  def generate_second_letter(swansea: false)
+    if swansea
+      ('A'..'K').to_a.sample
+    else
+      ('L'..'Z').to_a.sample
     end
   end
 

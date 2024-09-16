@@ -11,20 +11,21 @@ module AgeIdentifier
   csv.delete('colour')
 
   start_date = Date.new(03).strftime('%m')  # November 1, 2023
-  end_date = Date.new(08).strftime('%m')    # January 31, 2024
+  end_date = Date.new(2020, 0).strftime('%m')    # January 31, 2024
 
   date_range = (start_date..end_date)
 
-  csv.each do |date|
-    # some logic here to:
-    # cut the day
-    # the month will determine whether it will be a 20 or a 70 plate
-    # use gsub to do this, should be simple enough, like I did for the letter jumble
+  # some logic here to:
+  # cut the day
+  # the month will determine whether it will be a 20 or a 70 plate
+  # use gsub to do this, should be simple enough, like I did for the letter jumble
+  # pass the year in as month and year
+  # Need the month to determine what to do, need the year to determine the year
 
-    # pass the year in as month and year
-    # Need the month to determine what to do, need the year to determine the year
-    Date.parse(date.to_s).strftime('%Y-%m')
+  csv.foreach do |date|
+    date.to_s.strftime('%m')
   end
+
   # Date range 	Rule 	Example
   # March - Aug 01-05-2024 = 24
   # Sep - Feb Year + 50 	01-09-2024 = 74

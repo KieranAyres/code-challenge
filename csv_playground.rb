@@ -1,53 +1,44 @@
 require 'csv'
+require 'date'
 
-def generate_second_letter(swansea: false)
-  if swansea
-    ('A'..'K').to_a.sample
-  else
-    ('L'..'Z').to_a.sample
+
+# Date range 	Rule 	Example
+# March - Aug Year without century 	01-05-2024 = 24
+# Sep - Feb  	Year without century + 50 	01-09-2024 = 74
+
+months_of_the_year = {
+  january: 1,
+  february: 2,
+  march: 3,
+  april: 4,
+  may: 5,
+  june: 6,
+  july: 7,
+  august: 8,
+  september: 9,
+  october: 10,
+  november: 11,
+  december: 12
+}
+
+dates = []
+
+CSV.foreach('new_vehicles.csv', headers: true) do |date|
+  date.delete('vin')
+  date.delete('make')
+  date.delete('colour')
+  date.delete('registrationArea')
+
+  binding.irb
+  if Date.parse(date['dateOfManufacture']).month > months_of_the_year[:february] && Date.parse(date['dateOfManufacture']).month < months_of_the_year[:september]
+    dates << date['dateOfManufacture'].split('-')[2][-2..-1]
+  elsif Date.parse(date['dateOfManufacture']).month > months_of_the_year[:august] && Date.parse(date['dateOfManufacture']).month < months_of_the_year[:march]
+    date = date['dateOfManufacture'].split('-')[2][-2..-1].to_i + 50
+    dates << date.to_s
   end
+  # dates << date['dateOfManufacture']
 end
 
-# can I just put my logic in these iteration methods here load in here to create my reg numbers
-areas = []
-
-# CSV.foreach('new_vehicles.csv', headers: true) do |row|
-CSV.foreach('vehicles.csv', headers: true) do |row|
-  row.delete('vin')
-  row.delete('make')
-  row.delete('colour')
-  row.delete('dateOfManufacture')
-
-  areas << row.to_h
+def modify_without_century(dates)
+  dates.map { |date| date.split('-')[2][-2..-1] }
 end
-
-# hash of each reg area - registrationArea: area
-# puts areas[0]['registrationArea']
-
-codes = []
-birmingham_area_codes = []
-swansea_area_codes = []
-cardiff_area_codes = []
-count = 0
-
-areas.each do |area|
-  case area['registrationArea']
-  when 'birmingham'
-    birmingham_area_codes << 'B' + %w[A B C].sample
-  when 'swansea'
-    swansea_area_codes << 'C' + generate_second_letter(swansea: true)
-  when 'cardiff'
-    cardiff_area_codes << 'C' + generate_second_letter(swansea: false)
-  else
-    count += 1
-  end
-  codes = [birmingham_area_codes, swansea_area_codes, cardiff_area_codes]
-end
-
-# All Codes
-codes = codes.flatten
-
-puts "Reg Numbers: #{codes}"
-puts "\nInvalid Data: #{count}".
-File.open('reg_codes.csv', 'w').write(codes)
-# puts area_codes
