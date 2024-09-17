@@ -1,5 +1,7 @@
 # code-challenge
-Code Challenge
+HEO Code Challenge
+
+
 
 ### Running the app
 ```
@@ -7,8 +9,14 @@ ruby app.rb
 ```
 ### Running the tests
 ```
-rspec app_spec.rb
+bundle install
+cd spec
+rspec
 ```
+
+## Assumptions
+##### Some General Assumptions I made
+- The Data itself was almost too large to analyse by eye
 
 
 ## Todo
