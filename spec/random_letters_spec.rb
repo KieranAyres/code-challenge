@@ -23,6 +23,16 @@ RSpec.describe RandomLetters do
     expect(valid).to eql(false)
   end
 
-#   add test for generating a second letter
+  it 'can generate a random letter for Swansea in a specified range' do
+    swansea_range = ('A'..'K')
+    letter = RandomLetters.generate_second_letter(swansea: true)
+    expect(swansea_range).to include(letter)
+  end
+
+  it 'can generate a random letter for Cardiff in a specified range' do
+    cardiff_range = ('L'..'Z')
+    letter = RandomLetters.generate_second_letter(swansea: false)
+    expect(cardiff_range).to include(letter)
+  end
 
 end
