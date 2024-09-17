@@ -21,7 +21,19 @@ months_of_the_year = {
   december: 12
 }
 
+def modify_without_century(date)
+  date.to_s.chomp.split('-')[2][-2..-1]
+end
+
+def modify_without_century_add_fifty(date)
+  date.to_s.chomp.split('-')[2][-2..-1].to_i + 50
+end
+
+
 dates = []
+
+# process the year by here. Then load it through the function to modify it
+# They should go through and resume correct position in the array
 
 CSV.foreach('new_vehicles.csv', headers: true) do |date|
   date.delete('vin')
@@ -29,16 +41,44 @@ CSV.foreach('new_vehicles.csv', headers: true) do |date|
   date.delete('colour')
   date.delete('registrationArea')
 
-  binding.irb
   if Date.parse(date['dateOfManufacture']).month > months_of_the_year[:february] && Date.parse(date['dateOfManufacture']).month < months_of_the_year[:september]
-    dates << date['dateOfManufacture'].split('-')[2][-2..-1]
-  elsif Date.parse(date['dateOfManufacture']).month > months_of_the_year[:august] && Date.parse(date['dateOfManufacture']).month < months_of_the_year[:march]
-    date = date['dateOfManufacture'].split('-')[2][-2..-1].to_i + 50
+    # date = date.to_s.chomp.split('-')[2][-2..-1].to_i + 50
+    dates << modify_without_century(date)
+  else
+    date = modify_without_century_add_fifty(date)
     dates << date.to_s
   end
-  # dates << date['dateOfManufacture']
 end
 
-def modify_without_century(dates)
-  dates.map { |date| date.split('-')[2][-2..-1] }
+
+
+
+areas = []
+codes = []
+count = 0
+cities = []
+
+# programmatically delete all irrelevant data from the csv
+CSV.foreach('new_vehicles.csv', headers: true) do |row|
+  # CSV.foreach('vehicles.csv', headers: true) do |row|
+  row.delete('vin')
+  row.delete('make')
+  row.delete('colour')
+  row.delete('dateOfManufacture')
+
+  areas << row.to_h
+  cities << row['registrationArea']
+end
+
+areas.each do |area|
+  case area['registrationArea']
+  when 'birmingham'
+    codes << "B#{+ %w[A B C].sample} #{RandomLetters.generate}"
+  when 'swansea'
+    codes << "C#{+ generate_second_letter(swansea: true)} #{} #{RandomLetters.generate}"
+  when 'cardiff'
+    codes << "C#{+ generate_second_letter(swansea: false)} #{RandomLetters.generate}"
+  else
+    count += 1
+  end
 end
